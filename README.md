@@ -8,6 +8,7 @@ Para implementar este script deberás agregar esta migración al final de las ot
 ```php 
 database_path('migrations/sp')
 ```
+
 ## Reglas
 Para implementar este script sin problemas en tu proyecto debes seguir las siguientes reglas para evitar errores:
 * Debes crear un stored procedure por archivo `sql`, como en el ejemplo.
@@ -15,3 +16,12 @@ Para implementar este script sin problemas en tu proyecto debes seguir las sigui
 * No debe contener un delimiter el código `sql`.
 * Siempre colocar la migración al final de la carpeta para evitar errores.
 
+## Funcionamiento del script
+
+1. Obtener contenido de la carpeta donde se almacenarán los archivos de los stored procedures.
+2. Basándose en los nombres de los archivos, se van a eliminar, si existen, los stored procedures que se encuentran en la carpeta analizada anteriormente (Por eso es importante colocar en el nombre del archivo el mismo nombre de la función).
+3. Se ejecuta el contenido de cada uno de los archivos que se encuentran dentro de la carpeta analizada anteriormente.
+4. Si un stored procedure contiene un error se romperá la ejecución del código y se devolverá un mensaje con el error correspondiente.
+
+> [!IMPORTANT]  
+> En caso de un error durante la ejecución se recomienda ejecutar `php artisan migrate:fresh`, luego de corregir el código que generaba el error.
